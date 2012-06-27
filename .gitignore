@@ -5,4 +5,6 @@ storage/views/*
 *workspace
 
 application/config/sega
+application/config/dvl
 bundles/*/config/sega
+bundles/*/config/dvl

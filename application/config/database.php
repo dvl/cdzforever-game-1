@@ -70,9 +70,9 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => 'localhost',
-			'database' => 'cdzforever',
+			'database' => 'database',
 			'username' => 'root',
-			'password' => 'pwned',
+			'password' => '',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),

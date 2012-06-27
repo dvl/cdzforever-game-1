@@ -25,7 +25,8 @@ $environments = array(
 
 	'local' => array('http://localhost*', '*.dev'),
 	'sega' => array('http://dev/*'),
-
+	'dvl' => array('http://laravel/*'),
+	
 );
 
 // --------------------------------------------------------------
