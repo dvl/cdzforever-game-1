@@ -38,7 +38,7 @@ Route::controller('login');
 Route::get('logout', 'login@logout');
 
 Route::controller('register');
-Route::get('activate/(:any)/(:num)','register@activate');
+Route::get('activate/(:any)','register@activate');
 
 Route::get('page/(:any)','pages@index');
 Route::get('news/(:any)','updates@index');
