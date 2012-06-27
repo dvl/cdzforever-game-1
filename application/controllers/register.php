@@ -69,9 +69,30 @@ class Register_Controller extends Base_Controller {
 				'code' => $activation,
 				'user_id' => $user->id,
 			);
-			
+
 			$code = new Code($data);
 			$code->save();
+
+			// envia o email de confirmação, se conseguir
+			try {
+				Bundle::start('messages');
+				Message::to($user->email)
+					->from('no-reply@cdzforever.net', 'CDZForever')
+					->subject('CDZForever - Ativação de Cadastro')
+					->body(View::make('emails.code', array(
+						'code'    => $code->code,
+						'user'    => $user->username,
+						'user_id' => $user->id
+					)))
+					->html(true)
+					->send();
+			} catch (Exception $e) {
+				// se fode magrao
+				$user->delete(); // remove também o code recém adicionado (porque é fk)
+				return Redirect::to('register')
+					->with_errors(array('Erro ao enviar o email de ativação. Verifique o email informado, ou tente mais tarde.'))
+					->with_input();
+			}
 
 			// dispara um email com codigo de ativação
 
@@ -80,9 +101,9 @@ class Register_Controller extends Base_Controller {
 
 	}
 
-	public function get_activate($code,$id) {
+	public function get_activate($code) {
 
-		$code = Code::where('code', '=', $code)->where('user_id', '=', $id)->first();
+		$code = Code::where('code', '=', $code)->first();
 
 		if (count($code)) {
 			$code->delete();

@@ -5,3 +5,4 @@ storage/views/*
 *workspace
 
 application/config/sega
+bundles/*/config/sega
