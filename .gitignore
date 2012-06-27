@@ -3,3 +3,5 @@ storage/logs/*
 storage/cache/*
 storage/views/*
 *workspace
+
+application/config/sega
