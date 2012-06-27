@@ -1,0 +1,5 @@
+storage/sessions/*
+storage/logs/*
+storage/cache/*
+storage/views/*
+*workspace

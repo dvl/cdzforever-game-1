@@ -1,0 +1,81 @@
+body {
+	background: #000 url('../img/_bg.jpg') no-repeat;
+	background-attachment: fixed;
+}
+
+#wrapper {
+	padding: 16px;
+	margin: 16px auto;
+	background: rgba(255,255,255,0.4);
+}
+
+#banner img, #wrapper, #menu, #conteudo, #info { 
+	border-radius: 8px;
+}
+
+#menu, #conteudo, #info {
+	background: #F7F7F9;
+	margin-top: 16px;
+}
+
+.hero-unit {
+	background: #F7F7F9;
+}
+
+#menu, #info { /* fix */
+	margin-left: 0;
+}
+
+#conteudo {
+	float: right;
+	height: auto;
+}
+
+#conteudo > * {
+	margin: 8px 16px 8px 16px;
+}
+
+#avatar {
+	padding: 8px;
+}
+
+.smalltext {
+	font-size: 10px;
+}
+
+#footer {
+	color: #000;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: 0.1em 0.1em #999;
+}
+
+#quicklogin form {
+	padding: 16px 8px 0 8px;
+}
+
+#quicklogin form input[type="text"], #quicklogin form input[type="password"] {
+	width: 194px;
+}
+
+.current, .previous_page, .next_page {
+	float: left;
+	padding: 0 14px;
+	line-height: 34px;
+	text-decoration: none;
+	border: 1px solid #ddd;
+	border-left-width: 0;
+}
+
+.pagination *:first-child {
+	border-left-width: 1px;
+	-webkit-border-radius: 3px 0 0 3px;
+	-moz-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
+}
+
+.pagination *:last-child {
+	-webkit-border-radius: 0 3px 3px 0;
+	-moz-border-radius: 0 3px 3px 0;
+	border-radius: 0 3px 3px 0;
+}
