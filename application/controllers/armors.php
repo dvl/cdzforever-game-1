@@ -42,8 +42,6 @@ class Armors_Controller extends Base_Controller {
 		$user = User::find(Auth::user()->id);
 		$armor = Armor::find($user->armor_id);
 
-		count($armor) ? $armor->remove = str_replace(array('S','A','B','C','D'), array(70000,50000,30000,15000,5000), $armor->class) : null;
-
 		return View::make('armors.action')->with("user", $user)->with("armor", $armor);
 	}
 
@@ -62,6 +60,18 @@ class Armors_Controller extends Base_Controller {
 			Armor::find($user->armor_id)->withdraw();
 
 			return Redirect::to('armor')->with('info','Você retirou sua armadura de <strong>'.$armor->name.'</strong> com sucesso, seu cosmo sem armadura é de '.$user->cosmo_base.'.');
+		}
+
+		if (Input::get('action') == 'Reparar') {
+			Armor::find($user->armor_id)->repair();
+
+			return Redirect::to('armor')->with('info','Você reparou sua armadura de <strong>'.$armor->name.'</strong>.');
+		}
+
+		if (Input::get('action') == 'Desfazer') {
+			$res = Armor::find($user->armor_id)->drop(Input::get('confirmation'));
+
+			return Redirect::to('armor')->with('info' ,$res);
 		}
 	}
 

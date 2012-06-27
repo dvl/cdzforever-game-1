@@ -108,9 +108,13 @@
 									{{ Form::submit('Reparar',array('name' => 'action', 'class' => 'btn btn-primary btn-large disabled', 'disabled' => 'disabled')) }}
 								</td>
 							@else 
-								<td colspan="4" style="vertical-align: middle;">A durablidade da sua armadura de <strong>{{ $armor->name }}</strong> e de <span class="badge">{{ $armor->health }}/{{ $armor->healthmax }}</span>, o custo para repara-lá será de C$ {{ $armor->repair() }}</td>
+								<td colspan="4" style="vertical-align: middle;">A durablidade da sua armadura de <strong>{{ $armor->name }}</strong> e de <span class="badge">{{ $armor->health }}/{{ $armor->healthmax }}</span>, o custo para repara-lá será de C$ {{ $armor->repair_cost() }}</td>
 								<td style="vertical-align: middle; text-align: center;">
-									{{ Form::submit('Reparar',array('name' => 'action', 'class' => 'btn btn-primary btn-large')) }}
+									@if($user->money >= $armor->repair_cost())
+										{{ Form::submit('Reparar',array('name' => 'action', 'class' => 'btn btn-primary btn-large')) }}
+									@else 									
+										{{ Form::submit('Reparar',array('name' => 'action', 'class' => 'btn btn-primary btn-large disabled', 'disabled' => 'disabled', 'title' => 'Você não tem dinheiro suficiente.', 'id' => '#money')) }}
+									@endif
 								</td>
 							@endif
 						</tr>
@@ -120,9 +124,9 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="4" style="vertical-align: middle;">Caso você tenha aumentado seu cosmo recentemente talvez você queira uma armadura mais adequada, você pode se desfazer da sua armadura atual por C$ {{ $armor->remove }}, para isso digite sua senha no campo ao lado e clique em desfazer.</td>
+							<td colspan="4" style="vertical-align: middle;">Caso você tenha aumentado seu cosmo recentemente talvez você queira uma armadura mais adequada, você pode se desfazer da sua armadura atual por C$ {{ $armor->drop_cost() }}, para isso digite sua senha no campo ao lado e clique em desfazer.</td>
 							<td style="vertical-align: middle; text-align: center;">
-								@if ($user->money < $armor->remove)
+								@if ($user->money < $armor->remove)								
 									{{ Form::password('confirmation',array('class' => 'input-small', 'placeholder' => 'Senha', 'disabled' => 'disabled')) }} 
 									{{ Form::submit('Desfazer',array('name' => 'action', 'class' => 'btn btn-primary btn-large disabled', 'disabled' => 'disabled')) }}
 								@else

@@ -14,9 +14,9 @@ class Armor extends Eloquent {
 
 	public function assign($user_id)	{
 		if (!static::check_assign()) {
-			$relation = new static;
-			$relation->user_id = $user_id;
-			$relation->save();
+			$armor = new static;
+			$armor->user_id = $user_id;
+			$armor->save();
 		}
 	}
 
@@ -79,10 +79,9 @@ class Armor extends Eloquent {
 		$auras = array('99','54','37','15','2');
 
 		return str_replace($classes,$auras,$this->class);
-
 	}
 
-	public function repair() {
+	public function repair_cost() {
 
 		$fator = array('S' => '10','A' => '5','B' => '4','C' => '3','D' => '2.5');
 
@@ -91,5 +90,58 @@ class Armor extends Eloquent {
 		}
 
 		return ($this->healthmax - $this->health) * $fator[$this->class];
+	}
+
+	public function repair() {
+
+		if (static::check_assign()) {
+			
+			$armor = static::find($this->id);
+			$user = User::find($armor->user_id);
+
+			if ($user->money >= $armor->repair_cost()) {
+
+				$armor->health = $armor->healthmax;
+				$armor->save();
+
+				$user->money = $user->money - $armor->repair_cost();
+				$user->save();
+			}
+		}
+	}
+
+	public function drop($confirmation) {
+
+		if (static::check_assign()) {
+
+			$armor = static::find($this->id);
+			$user = User::find($armor->user_id);
+
+			if (($user->money >= $armor->drop_cost()) && (Hash::check($confirmation, $user->password))) {
+
+				if ($armor->invoked) {
+					$armor->withdraw();
+				}
+
+				$armor->health = $armor->healthmax;
+				$armor->user_id = 0;
+				$armor->save();
+
+				$user->money = $user->money - $armor->drop_cost();
+				$user->cosmo = $user->cosmo_base;
+				$user->armor_id = 0;
+				$user->save();
+
+				return 'Você se desfez da sua armadura';
+			}
+
+			else {
+				return 'Senha Errada';
+			}
+		}
+	}
+
+	public function drop_cost() {
+		return str_replace(array('S','A','B','C','D'), array(70000,50000,30000,15000,5000), $this->class);
 	}
 }

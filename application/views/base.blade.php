@@ -4,7 +4,7 @@
 	<title>CDZForever - @yield('title')</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	{{ HTML::style('css/bootstrap.css') }}
-	{{ HTML::style('css/style.css') }}
+	{{ HTML::style('css/style.css') }}	
 </head>
 
 <body>
@@ -46,10 +46,7 @@
 	</div>
 
 	{{ HTML::script('js/jquery.js') }}
-	{{ HTML::script('js/bootstrap-tab.js')}}
 	{{ HTML::script('js/bootstrap-typeahead.js') }}
-	{{ HTML::script('js/bootstrap-tooltip.js') }}
-	{{ HTML::script('js/bootstrap-popover.js') }}
 </body>
 
 </html>

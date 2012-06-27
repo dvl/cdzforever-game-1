@@ -8,7 +8,7 @@ class Home_Controller extends Base_Controller {
 
 		if (!Auth::check()) {
 			
-			$news = Update::all();
+			$news = Update::take(2)->get();
 
 			return View::make('pages.home')->with('news', $news);
 		}
