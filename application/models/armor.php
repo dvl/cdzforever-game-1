@@ -13,8 +13,15 @@ class Armor extends Eloquent {
 	}
 
 	public function assign($user_id)	{
+
+		$armor = static::find($this->id);
+		$user = User::find($user_id);
+
 		if (!static::check_assign()) {
-			$armor = new static;
+			if ($user->money <= $armor->cost) {
+				return "Você não tem dinheiro o bastante para concluir essa operação";
+			}
+			elseif ($user->aura())
 			$armor->user_id = $user_id;
 			$armor->save();
 		}
@@ -22,9 +29,9 @@ class Armor extends Eloquent {
 
 	public function remove_assign($user_id){ 
 		if (static::check_assign()) {
-			$relation = new static;
-			$relation->user_id = 0;
-			$relation->save();
+			$armor = new static;
+			$armor->user_id = 0;
+			$armor->save();
 		}
 	}
 

@@ -1,7 +1,4 @@
-storage/sessions/*
-storage/logs/*
-storage/cache/*
-storage/views/*
+storage/*
 *workspace
 
 application/config/sega

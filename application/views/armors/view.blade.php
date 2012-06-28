@@ -73,6 +73,7 @@
 					@endif
 				</tbody>
 			</table>
+			{{ Form::hidden('armor_id', $armor->id) }}
 			{{ Form::token() }}
 		{{ Form::close() }}
 	</div>

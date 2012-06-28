@@ -79,8 +79,21 @@ class Armors_Controller extends Base_Controller {
 		$armor = Armor::find($id);
 
 		if (count($armor)) {
-
 			return View::make('armors.view')->with('armor', $armor);
+		}
+		else {
+			return Response::error('404');
+		}
+	}
+
+	public function post_view($id = null) {
+		$user = User::find(Auth::user()->id);
+		$armor = Armor::find($id);
+
+		if (count($armor)) {
+			$rel = $armor->assign($user->id);
+
+			return Redirect::to('armor')->with('info' ,$res);
 		}
 		else {
 			return Response::error('404');
