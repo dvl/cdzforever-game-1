@@ -15,7 +15,7 @@
 		</li>
 	</ul>
 
-	{{ Form::open('armor','GET',array('class' => 'well form-inline')) }}
+	{{ Form::open('armors','GET',array('class' => 'well form-inline')) }}
 
 	{{ Form::armors_form() }}
 

@@ -14,6 +14,11 @@ HTML::macro('menulink', function($url, $title, $icon, $attributes = array(), $ht
 	return '<li><a href="'.$url.'"><i class="icon-'.$icon.'"></i> '.$title.'</a></li>';
 });
 
+HTML::macro('menulink_not', function($url, $title, $icon, $qtd = 0, $attributes = array(), $https = null) {
+	$url = URL::to($url, $https);
+	return '<li><a href="'.$url.'"><i class="icon-'.$icon.'"></i> '.$title.' <span class="badge '.($qtd > 0 ? 'badge-important' : '').'" style="float: right;">'.$qtd.'</span></a></li>';
+});
+
 Form::macro('states', function($name = "state", $selected = null) {
 	
 	$states = array("AC"=>"Acre", "AL"=>"Alagoas", "AM"=>"Amazonas", "AP"=>"Amapá","BA"=>"Bahia","CE"=>"Ceará","DF"=>"Distrito Federal","ES"=>"Espírito Santo","GO"=>"Goiás","MA"=>"Maranhão","MT"=>"Mato Grosso","MS"=>"Mato Grosso do Sul","MG"=>"Minas Gerais","PA"=>"Pará","PB"=>"Paraíba","PR"=>"Paraná","PE"=>"Pernambuco","PI"=>"Piauí","RJ"=>"Rio de Janeiro","RN"=>"Rio Grande do Norte","RO"=>"Rondônia","RS"=>"Rio Grande do Sul","RR"=>"Roraima","SC"=>"Santa Catarina","SE"=>"Sergipe","SP"=>"São Paulo","TO"=>"Tocantins");

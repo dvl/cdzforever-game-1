@@ -11,5 +11,7 @@
 	{{ HTML::menulink('quiz','Quiz','check') }}
 	{{ HTML::menulink('merits','Méritos','gift') }}
 	{{ HTML::menulink('statics','Estatísticas','list-alt') }}
+	{{ HTML::menulink_not('statics','Mensagens','envelope',1) }} 
+	{{ HTML::menulink_not('statics','Relatórios','briefcase',0) }}
 	{{ HTML::menulink('logout','Logout','off') }}
 @endif
