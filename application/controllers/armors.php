@@ -91,7 +91,7 @@ class Armors_Controller extends Base_Controller {
 		$armor = Armor::find($id);
 
 		if (count($armor)) {
-			$rel = $armor->assign($user->id);
+			$res = $armor->assign($user->id);
 
 			return Redirect::to('armor')->with('info' ,$res);
 		}

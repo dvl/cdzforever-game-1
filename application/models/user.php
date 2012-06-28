@@ -31,7 +31,12 @@ class User extends Eloquent {
 	}
 
 	public function next_aura() {
-		return static::$lvs[$this->aura()];
+		if ($this->aura() >= count(static::$lvs)) {
+			return "0";
+		}
+		else {
+			return static::$lvs[$this->aura()];
+		}
 	}
 
 }

@@ -37,11 +37,6 @@
 					<td>Aura:</td>
 					<td>{{ $user->aura() }}x</td>
 				</tr>
-				<!-- <tr>
-					<td>Proxima Aura:</td>
-					<td colspan="2"><div class="progress" style="margin: 0"><div class="bar" style="width: {{ round(($user->cosmo / $user->next_aura()) * 100) }}%;"></div></div></td>
-					<td>{{ $user->cosmo }}/{{ $user->next_aura() }}</td>
-				</tr> -->
 				<tr>
 					<td>Vigor:</td>
 					<td colspan="2"><div class="progress" style="margin: 0"><div class="bar" style="width: {{ $user->stamina }}%;"></div></div></td>
@@ -68,7 +63,7 @@
 			</tbody>
 		</table>
 
-		@if (isset($armor->name))
+		@if ($user->armor_id != 0)
 
 		<table class="table table-bordered">
 			<thead>

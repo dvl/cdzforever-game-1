@@ -17,13 +17,25 @@ class Armor extends Eloquent {
 		$armor = static::find($this->id);
 		$user = User::find($user_id);
 
-		if (!static::check_assign()) {
-			if ($user->money <= $armor->cost) {
-				return "Você não tem dinheiro o bastante para concluir essa operação";
-			}
-			elseif ($user->aura())
+		if ($armor->user_id != 0) {
+			return "Essa armadura já tem dono.";
+		}
+		elseif ($user->armor_id != 0) { 
+			return "Você já tem uma armadura";
+		}
+		elseif ($user->money < $armor->cost) {
+			return "Você não tem dinheiro o bastante para concluir essa operação";
+		}
+		elseif ($user->aura() < $armor->aura) {
+			return "Você não tem cosmo o bastante para usar essa armadura";
+		}
+		else {
 			$armor->user_id = $user_id;
 			$armor->save();
+			$user->money = $user->money - $armor->cost;
+			$user->armor_id = $this->id;
+			$user->save();
+			return "Você recebeu a armadura de <strong>".$armor->name."</strong>";
 		}
 	}
 
