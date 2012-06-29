@@ -161,18 +161,18 @@
 			<tbody>
 				<tr>
 					<td width="15%">Acertos:</td>
-					<td><div class="progress progress-success" style="margin: 0"><div class="bar" style="width: {{ $user->winsp }}%;"></div></div></td>
-					<td width="10%" style="text-align: center">{{ $user->wins }}</td>
+					<td><div class="progress progress-success" style="margin: 0"><div class="bar" style="width: {{ $user->correctsp }}%;"></div></div></td>
+					<td width="10%" style="text-align: center">{{ $user->corrects }}</td>
 				</tr>
 				<tr>
 					<td>Erros:</td>
-					<td><div class="progress progress-danger" style="margin: 0"><div class="bar" style="width: {{ $user->losesp }}%;"></div></div></td>
-					<td style="text-align: center">{{ $user->loses }}</td>
+					<td><div class="progress progress-danger" style="margin: 0"><div class="bar" style="width: {{ $user->wrongsp }}%;"></div></div></td>
+					<td style="text-align: center">{{ $user->wrongs }}</td>
 				</tr>
 				<tr style="font-weight: bold;">
 					<td>Total:</td>
 					<td><!-- <div class="progress" style="margin: 0"><div class="bar" style="width: {{ $user->winsp + $user->losesp }}%;"></div></div> --></td>
-					<td style="text-align: center">{{ $user->wins + $user->loses }}</td>
+					<td style="text-align: center">{{ $user->corrects + $user->wrongs }}</td>
 				</tr>
 			</tbody>
 		</table>

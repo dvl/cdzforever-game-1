@@ -22,6 +22,7 @@ class Questions_Controller extends Base_Controller {
 		}
 		else {
 			$user->quiz_date = date('Y-m-d H:i:s');
+			$user->increment('wrongs');
 			$user->save();
 
 			$question = Question::where_not_in('id', json_decode($user->quiz))->order_by(DB::raw('RAND()'))->first();
@@ -47,6 +48,8 @@ class Questions_Controller extends Base_Controller {
 
 		elseif (Input::get('reply') == $question->correct) {
 			$user->merits = $user->merits + 20;
+			$user->increment('corrects');
+			$user->decrement('wrongs');
 			$user->save();
 			return Redirect::to('quiz')->with('info', 'Resposta correta, você ganhou <strong>20 méritos</strong>');
 		}
