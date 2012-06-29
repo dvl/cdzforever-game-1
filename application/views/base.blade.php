@@ -5,6 +5,9 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/style.css') }}	
+	<script type="text/javascript">
+		var base = '{{ URL::to('/') }}';
+	</script>
 </head>
 
 <body>
@@ -31,6 +34,9 @@
 					@if (Session::has('info'))
 						<div class="alert alert-info">{{ Session::get('info') }}</div>
 						{{ Session::forget('info') }}
+					@elseif (Session::has('error'))
+						<div class="alert alert-error">{{ Session::get('error') }}</div>
+						{{ Session::forget('error') }}
 					@endif
 					@yield('content')
 				</div>
@@ -46,7 +52,9 @@
 	</div>
 
 	{{ HTML::script('js/jquery.js') }}
+	{{ HTML::script('js/jquery.countdown.js') }}
 	{{ HTML::script('js/bootstrap-typeahead.js') }}
+	{{ HTML::script('js/site.js') }}
 </body>
 
 </html>
