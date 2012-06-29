@@ -16,7 +16,7 @@ HTML::macro('menulink', function($url, $title, $icon, $attributes = array(), $ht
 
 HTML::macro('menulink_not', function($url, $title, $icon, $qtd = 0, $attributes = array(), $https = null) {
 	$url = URL::to($url, $https);
-	return '<li><a href="'.$url.'"><i class="icon-'.$icon.'"></i> '.$title.' <span class="badge '.($qtd > 0 ? 'badge-important' : '').'" style="float: right;">'.$qtd.'</span></a></li>';
+	return '<li><a href="'.$url.'"><i class="icon-'.$icon.'"></i> '.$title.' <span class="badge '.($qtd > 0 ? 'badge-success' : '').'" style="float: right;">'.$qtd.'</span></a></li>';
 });
 
 Form::macro('states', function($name = "state", $selected = null) {
