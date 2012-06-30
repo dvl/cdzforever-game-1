@@ -6,11 +6,9 @@ $(function () {
             compact: true,
             onExpiry: reload,
         });
-    });
-    
+    });    
 });
 
 function reload() { 
     window.location.reload();
 }
-

@@ -51,6 +51,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::any('armor/(:num)','armors@view');
 	Route::get('quiz','questions@index');
 	Route::any('question','questions@question');
+	Route::any('fight','fight@index');
 });
 
 /*

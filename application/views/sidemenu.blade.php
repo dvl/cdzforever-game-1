@@ -4,7 +4,7 @@
 @else
 	{{ HTML::menulink('profile','Perfil','user') }}
 	{{ HTML::menulink('pratice','Treinos','book') }}
-	{{ HTML::menulink('fight','Luta','fire') }}
+	{{ HTML::menulink_not('fight','Luta','fire',0) }}
 	{{ HTML::menulink('hospital','Hospital','heart') }}
 	{{ HTML::menulink('store','Loja','shopping-cart') }}	
 	{{ HTML::menulink('armor','Amadura','leaf') }}

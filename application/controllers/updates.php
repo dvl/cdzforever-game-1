@@ -7,7 +7,7 @@ class Updates_Controller extends Base_Controller {
 		$new = Update::find($id);
 
 		if (count($new)) {
-			return View::make('pages.updates')->with('new', $new);
+			return View::make('news/view')->with('new', $new);
 		}
 		else {
 			return Response::error('404');
