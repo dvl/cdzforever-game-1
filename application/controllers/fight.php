@@ -43,8 +43,14 @@ class Fight_Controller extends Base_Controller {
 			$fight->new_fight($target->id);
 			return Redirect::to('fight')->with('info', 'Seu desafio foi enviado.');
 		}
+	}
 
+	public function post_find() {
+		$min = Auth::user()->cosmo - (Auth::user()->cosmo * 0.15);
+		$max = Auth::user()->cosmo + (Auth::user()->cosmo * 0.15);
 
+		$users = User::where('cosmo', '>=', $min)->where('cosmo', '<=', $max)->where('id', '!=', Auth::user()->id)->order_by('updated_at', 'ASC')->take(10)->get();
 
+		return View::make('fight.find')->with('users', $users);
 	}
 }

@@ -14,7 +14,7 @@
 				<tr>
 					<td>Cadastrado em:</td>
 					<td>{{ $user->created_at }}</td>
-					<td>Ultimo login em:</td>
+					<td>Ultima atividade:</td>
 					<td>{{ $user->updated_at }}</td>
 				</tr>
 				<tr>
@@ -177,7 +177,11 @@
 			</tbody>
 		</table>
 		@if (Auth::user()->username != $user->username)
-		<p style="text-align: center">{{ HTML::link('fight', 'Desafiar', array('class' => 'btn btn-primary btn-large')) }} {{ HTML::link('message', 'Mensagem', array('class' => 'btn btn-success btn-large')) }}</p>
+			{{ Form::open('fight/challenge') }}
+				{{ Form::hidden('target', $user->username) }}
+				<p style="text-align: center">{{ Form::submit('Desafiar', array('class' => 'btn btn-primary btn-large')) }}</p>
+			{{ Form::token() }}
+			{{ Form::close() }}
 		@endif
 	</div>
 @endsection

@@ -1,7 +1,7 @@
 @layout('base')
 
 @section('title')
-	Armaduras
+	Luta
 @endsection
 
 @section('content')
@@ -36,11 +36,8 @@
 		{{ Form::open('fight/find') }}
 		<tbody>
 			<tr>
-				<td style="vertical-align: middle;" colspan="3">
-					Você tambem pode buscar por jogadores online atualmente para desafiar.
-				</td>
-				<td style="vertical-align: middle; text-align: center;  padding-top: 16px;" colspan="2">
-					{{ Form::select('nivel', array('1' => 'Mesmo nivel', '2' => 'Nivel superior')); }}
+				<td style="vertical-align: middle;" colspan="5">
+					Você tambem pode buscar por jogadores do seu nível baseado na ultima ativadade deles, jogadores com atividade recente possuem mais chances de aceitar seu desafio mais rapidamente.
 				</td>
 			</tr>
 			<tr>
@@ -65,10 +62,11 @@
 				@foreach ($sent as $s)
 					{{ Form::open('fight/action') }}
 						@if ($s->user_id_2 == Auth::user()->id)
+						<?php $user = User::find($s->user_id_1) ?>
 							<tr>
-								<td style="vertical-align: middle;">{{ $s->user_id_1 }}</td>
-								<td style="vertical-align: middle; text-align: center;"></td>
-								<td style="vertical-align: middle; text-align: center;"></td>
+								<td style="vertical-align: middle;">{{ HTML::profile_link($user->username) }}</td>
+								<td style="vertical-align: middle; text-align: center;">{{ $user->cosmo }}</td>
+								<td style="vertical-align: middle; text-align: center;">{{ $user->aura() }}x</td>
 								<td style="vertical-align: middle; text-align: center;"><span class="countdown">{{ strtotime('+6 hours',strtotime($s->created_at)) - time() }}</span></td>
 								<td style="vertical-align: middle; text-align: center;">
 								{{ Form::submit('Aceitar', array('class' => 'btn btn-success')) }}
@@ -92,15 +90,20 @@
 						Não existem desafios
 					</th>
 				@else
-					<th colspan="3">Nick</th>
+					<th>Nick</th>
+					<th>Cosmo</th>
+					<th>Aura</th>
 					<th>Expira em</th>
 					<th>Ação</th>
 				@endif
 				@foreach ($sent as $s)
 					{{ Form::open('fight/action') }}
 						@if ($s->user_id_2 != Auth::user()->id)
+						<?php $user = User::find($s->user_id_2) ?>
 							<tr>
-								<td style="vertical-align: middle;" colspan="3">{{ $s->user_id_2 }}</td>
+								<td style="vertical-align: middle;">{{ HTML::profile_link($user->username) }}</td>
+								<td style="vertical-align: middle; text-align: center;">{{ $user->cosmo }}</td>
+								<td style="vertical-align: middle; text-align: center;">{{ $user->aura() }}x</td>
 								<td style="vertical-align: middle; text-align: center;"><span class="countdown">{{ strtotime('+6 hours',strtotime($s->created_at)) - time() }}</span></td>
 								<td style="vertical-align: middle; text-align: center;">
 								{{ Form::submit('Cancelar', array('class' => 'btn btn-danger')) }}
