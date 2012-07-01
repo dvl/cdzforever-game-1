@@ -2,16 +2,22 @@
 
 class Ajax_Controller extends Controller {
 
-	/**
-	 * Catch-all method for requests that can't be matched.
-	 *
-	 * @param  string    $method
-	 * @param  array     $parameters
-	 * @return Response
-	 */
-	public function __call($method, $parameters)
-	{
-		return Response::error('404');
-	}
+	public $restful = true;
 
+	public function post_target() {
+		if (Request::ajax()) {
+			$users = User::where('username', 'LIKE', Input::get('q').'%')->take(10)->get();
+
+			$list = array();
+
+			foreach ($users as $user) {
+				$list[] = $user->username;
+			}
+
+			return json_encode($list);
+		}
+		else {
+			return Response::error(500);
+		}
+	}
 }

@@ -7,6 +7,7 @@
 @section('content')
 
 <div>
+	{{ Form::open() }}
 	<table class="table table-bordered"> 
 		<thead>
 			<th colspan="4">Desafiar</th>
@@ -17,7 +18,8 @@
 					Digite o nick do jogador a ser desafiado e clique em enviar.
 				</td>
 				<td style="vertical-align: middle; text-align: center;  padding-top: 16px;" colspan="2">
-					{{ Form::text('target', null, array('class' => 'input-xlarge')) }}
+					{{ Form::text('target', null, array('class' => 'input-xlarge typeahead')) }}
+					{{ Form::hidden('data-url',URL::to('ajax/target/')) }}
 				</td>
 			</tr>
 			<tr>
@@ -78,6 +80,8 @@
 			</tr>
 		</tbody>
 	</table>
+	{{ Form::token() }}
+	{{ Form::close() }}
 </div>
 
 
