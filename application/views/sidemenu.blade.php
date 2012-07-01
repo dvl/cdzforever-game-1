@@ -4,7 +4,7 @@
 @else
 	{{ HTML::menulink('profile','Perfil','user') }}
 	{{ HTML::menulink('pratice','Treinos','book') }}
-	{{ HTML::menulink_not('fight','Luta','fire',0) }}
+	{{ HTML::menulink_not('fight','Luta','fire',Fight::where('user_id_2', '=', Auth::user()->id)->count()) }}
 	{{ HTML::menulink('hospital','Hospital','heart') }}
 	{{ HTML::menulink('store','Loja','shopping-cart') }}	
 	{{ HTML::menulink('armor','Amadura','leaf') }}
