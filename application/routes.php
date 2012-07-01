@@ -51,7 +51,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::any('armor/(:num)','armors@view');
 	Route::get('quiz','questions@index');
 	Route::any('question','questions@question');
-	Route::any('fight','fight@index');
+	Route::controller('fight');
 	Route::controller('ajax');
 });
 
@@ -126,4 +126,8 @@ Route::filter('csrf', function()
 Route::filter('auth', function()
 {
 	if (Auth::guest()) return Redirect::to('login');
+});
+
+Route::filter('is_busy',function(){
+	// determina se o usuario esta ocupado treinando, numa aventura, dormindo, etc...
 });

@@ -11,7 +11,7 @@ Quiz
 
 	<div style="text-align:center;">
 		<h3>Tempo para resposta</h3>
-		<h1><div class="countdown">00:00:20</div></h1>
+		<h1><div class="countdown">20</div></h1>
 		<hr />
 		{{ Form::open() }}
 			<table class="table">

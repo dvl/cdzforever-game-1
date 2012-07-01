@@ -11,10 +11,12 @@ $(function () {
 
 	$('.typeahead').each(function() {
 		$(this).typeahead({ 
-			source: function(typeahead,query,token) { 
+			source: function(typeahead,query) { 
 				$.ajax({
 					dataType: 'json',
-					data: { q: query, t: token },
+					data: { 
+						query: query ,
+					},
 					type: 'POST',
 					url: $("[name='data-url']").val(),
 					statusCode: {

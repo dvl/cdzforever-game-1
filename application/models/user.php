@@ -39,5 +39,27 @@ class User extends Eloquent {
 		}
 	}
 
+	public function recalculate() {
+		$user = static::find($this->id);
+		$armor = Armor::find($user->armor_id);
+
+		echo $armor->invoked;
+
+		if (!$armor->invoked) {
+			$user->cosmo = $user->cosmo_base;
+			$user->strong = 3 * $user->aura();
+			$user->dexterity = 1 * $user->aura();
+			$user->resistence = 1 * $user->aura();
+			$user->vitality = 2 * $user->aura();
+		}
+		else {
+			$user->cosmo = $user->cosmo_base + ($user->cosmo_base * ($armor->cosmo / 100));
+			$user->strong = (3 * $user->aura()) + $armor->strong;
+			$user->dexterity = (1 * $user->aura()) + $armor->dexterity;
+			$user->resistence = (1 * $user->aura()) + $armor->resistence;
+			$user->vitality = (2 * $user->aura()) + $armor->vitality;
+		}
+		$user->save();
+	}
 }
 

@@ -59,15 +59,11 @@ class Armor extends Eloquent {
 			$user = User::find($armor->user_id);
 
 			if (($armor->invoked == 0) && ($armor->health > 0)) {
-				$user->strong = $user->strong + $armor->strong;
-				$user->dexterity = $user->dexterity + $armor->dexterity;
-				$user->resistence = $user->resistence + $armor->resistence;
-				$user->vitality = $user->vitality + $armor->vitality;
-				$user->cosmo = $user->cosmo_base + ($user->cosmo_base * ($armor->cosmo / 100));
-				$user->save();
 
 				$armor->invoked = 1;
 				$armor->save();
+
+				$user->recalculate();
 			}
 		}
 	}
@@ -79,15 +75,11 @@ class Armor extends Eloquent {
 			$user = User::find($armor->user_id);
 
 			if ($armor->invoked == 1) {
-				$user->strong = $user->strong - $armor->strong;
-				$user->dexterity = $user->dexterity - $armor->dexterity;
-				$user->resistence = $user->resistence - $armor->resistence;
-				$user->vitality = $user->vitality - $armor->vitality;
-				$user->cosmo = $user->cosmo_base;
-				$user->save();
 
 				$armor->invoked = 0;
 				$armor->save();
+
+				$user->recalculate();
 			}
 		}
 	}
@@ -147,7 +139,6 @@ class Armor extends Eloquent {
 				$armor->save();
 
 				$user->money = $user->money - $armor->drop_cost();
-				$user->cosmo = $user->cosmo_base;
 				$user->armor_id = 0;
 				$user->save();
 

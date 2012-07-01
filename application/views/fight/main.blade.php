@@ -7,11 +7,11 @@
 @section('content')
 
 <div>
-	{{ Form::open() }}
 	<table class="table table-bordered"> 
 		<thead>
 			<th colspan="4">Desafiar</th>
 		</thead>
+		{{ Form::open('fight/challenge') }}
 		<tbody>
 			<tr>
 				<td style="vertical-align: middle;" colspan="2">
@@ -27,10 +27,13 @@
 					{{ Form::submit('Desafiar',array('name' => 'action', 'class' => 'btn btn-primary btn-large')) }}
 				</td>
 			</tr>
-		</tbody>	
+		</tbody>
+		{{ Form::token() }}
+		{{ Form::close() }}	
 		<thead>
 			<th colspan="4">Buscar jogadores online</th>
 		</thead>
+		{{ Form::open('fight/find') }}
 		<tbody>
 			<tr>
 				<td style="vertical-align: middle;" colspan="2">
@@ -46,6 +49,8 @@
 				</td>
 			</tr>
 		</tbody>
+		{{ Form::token() }}
+		{{ Form::close() }}	
 		<thead>
 			<th colspan="4">Desafios recebidos</th>
 		</thead>
@@ -60,8 +65,11 @@
 				<td style="vertical-align: middle; text-align: center;">5200</td>
 				<td style="vertical-align: middle; text-align: center;">2x</td>
 				<td style="vertical-align: middle; text-align: center;">
-					{{ Form::button('Aceitar', array('class' => 'btn btn-success')) }}
-					{{ Form::button('Recusar', array('class' => 'btn btn-danger')) }}
+					{{ Form::open('fight/action') }}
+					{{ Form::submit('Aceitar', array('class' => 'btn btn-success')) }}
+					{{ Form::submit('Recusar', array('class' => 'btn btn-danger')) }}
+					{{ Form::token() }}
+					{{ Form::close() }}	
 				</td>
 			</tr>
 		</tbody>
@@ -70,18 +78,23 @@
 		</thead>
 		<tbody>
 			<tr>
-				<th colspan="3">Nick</th>
+				<th colspan="2">Nick</th>
+				<th>Expira em</th>
 				<th>Ação</th>
-			<tr>
-				<td style="vertical-align: middle;" colspan="3">Saber</td>
-				<td style="vertical-align: middle; text-align: center;">
-					{{ Form::button('Cancelar', array('class' => 'btn btn-danger')) }}
-				</td>
+				@foreach ($sent as $s)
+					{{ Form::open('fight/action') }}
+						<tr>
+							<td style="vertical-align: middle;" colspan="2">{{ $s->user_id_2 }}</td>
+							<td style="vertical-align: middle; text-align: center;"><span class="countdown">{{ strtotime(date('H:m:s d-m-Y', strtotime('+6 hours',strtotime($s->created_at)))) - time() }}</span></td>
+							<td style="vertical-align: middle; text-align: center;">
+							{{ Form::submit('Cancelar', array('class' => 'btn btn-danger')) }}
+						</td>
+					{{ Form::token() }}
+					{{ Form::close() }}	
+				@endforeach
 			</tr>
 		</tbody>
 	</table>
-	{{ Form::token() }}
-	{{ Form::close() }}
 </div>
 
 
