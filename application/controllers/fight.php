@@ -9,8 +9,11 @@ class Fight_Controller extends Base_Controller {
 	}
 
 	public function get_index() {
-
-		$sent = Fight::where('user_id_1', '=', Auth::user()->id)->or_where('user_id_2', '=', Auth::user()->id)->get();
+		
+		$sent = Fight::where('status', '=', 0)->where(function($query) {
+			$query->where('user_id_1', '=', Auth::user()->id);
+			$query->or_where('user_id_2', '=', Auth::user()->id);
+		})->get();
 
 		return View::make('fight/main')->with('sent', $sent);
 	}
@@ -19,7 +22,7 @@ class Fight_Controller extends Base_Controller {
 
 		$target = User::where('username', '=', Input::get('target'))->first();
 		$me = User::find(Auth::user()->id);
-		$fight = Fight::where('user_id_1', '=', $me->id);
+		$fight = Fight::where('status', '=', 0)->where('user_id_1', '=', $me->id);
 
 		$min = (($fight->count() + 1) * 20);
 

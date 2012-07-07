@@ -10,15 +10,27 @@ class Cleanup_Task {
 	}
 
 	public function fight() {
-		echo "[*] Encerrando desafios nao aceitos a mais de 5 hrs\n\n";
+		echo "[*] Encerrando desafios nao aceitos a mais de 6 hrs...";
+
+		$fights = Fight::where('status', '=', 0)->get();
+
+		foreach ($fights as $fight) {
+			if (strtotime('+6 hours',strtotime($fight->created_at)) - time() <= 0) {
+				$fight->status = 1;
+				$fight->save();
+			}
+		}
+
+		echo " Ok!\n\n";
+
 	}
 
 	public function pratices() {
-		echo "[*] Finalizando treinos\n\n";	
+		echo "[*] Finalizando treinos...\n\n";	
 	}
 
 	public function logins() {
-		echo "[*] Apagando entradas antigas na tablela logins\n\n";
+		echo "[*] Apagando entradas antigas na tablela logins...\n\n";
 	}
 
 }

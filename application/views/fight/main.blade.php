@@ -59,10 +59,11 @@
 				<th>Expira em</th>
 				<th>Ação</th>
 			{{ Form::open('fight/action') }}
+				<?php $i = 0; ?>
 				@foreach ($sent as $s)
 					{{ Form::open('fight/action') }}
 						@if ($s->user_id_2 == Auth::user()->id)
-						<?php $user = User::find($s->user_id_1) ?>
+						<?php $user = User::find($s->user_id_1); $i++; ?>
 							<tr>
 								<td style="vertical-align: middle;">{{ HTML::profile_link($user->username) }}</td>
 								<td style="vertical-align: middle; text-align: center;">{{ $user->cosmo }}</td>
@@ -77,29 +78,27 @@
 					{{ Form::token() }}
 					{{ Form::close() }}	
 				@endforeach
-			{{ Form::token() }}
-			{{ Form::close() }}	
+				@if ($i == 0) 
+					<tr>
+						<td colspan="5" style="text-align: center;">Não existem desafios</td>
+					</tr>
+				@endif
 		</tbody>
 		<thead>
 			<th colspan="5">Desafios Enviados</th>
 		</thead>
 		<tbody>
 			<tr>
-				@if (!count($sent))
-					<th colspan="5">
-						Não existem desafios
-					</th>
-				@else
-					<th>Nick</th>
-					<th>Cosmo</th>
-					<th>Aura</th>
-					<th>Expira em</th>
-					<th>Ação</th>
-				@endif
+				<th>Nick</th>
+				<th>Cosmo</th>
+				<th>Aura</th>
+				<th>Expira em</th>
+				<th>Ação</th>
+				<?php $i = 0; ?>
 				@foreach ($sent as $s)
 					{{ Form::open('fight/action') }}
 						@if ($s->user_id_2 != Auth::user()->id)
-						<?php $user = User::find($s->user_id_2) ?>
+						<?php $user = User::find($s->user_id_2); $i++; ?>
 							<tr>
 								<td style="vertical-align: middle;">{{ HTML::profile_link($user->username) }}</td>
 								<td style="vertical-align: middle; text-align: center;">{{ $user->cosmo }}</td>
@@ -113,6 +112,11 @@
 					{{ Form::token() }}
 					{{ Form::close() }}	
 				@endforeach
+				@if ($i == 0) 
+					<tr>
+						<td colspan="5" style="text-align: center;">Não existem desafios</td>
+					</tr>
+				@endif
 			</tr>
 		</tbody>
 	</table>
