@@ -9,6 +9,14 @@ $(function () {
 		});
 	});  
 
+	$('.servertime').each(function() {
+		$(this).countdown({
+			since: $(this).html(), 
+			format: 'HMS',
+			compact: true,
+		});
+	});  
+
 	$('.typeahead').each(function() {
 		$(this).typeahead({ 
 			source: function(typeahead,query) { 
@@ -30,6 +38,10 @@ $(function () {
 				});
 			}
 		});
+	});
+
+	$('[rel=tooltip]').each(function() { 
+		$(this).tooltip();
 	});
 				
 });

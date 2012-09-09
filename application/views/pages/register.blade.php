@@ -27,6 +27,12 @@ Cadastro
 					{{ Form::text('email', Input::old('email'), array('class' => 'input-xlarge')) }}
 				</div>
 			</div>
+			<!-- <div class="control-group">
+				{{ Form::label('invitation', 'Código do Convite', array('class' => 'control-label')) }}
+				<div class="controls">
+					{{ Form::text('invite', Input::old('invite'), array('class' => 'input-xlarge')) }}
+				</div>
+			</div> -->
 			<div class="control-group">
 				{{ Form::label('password', 'Senha', array('class' => 'control-label')) }}
 				<div class="controls">

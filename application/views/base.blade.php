@@ -54,6 +54,7 @@
 	{{ HTML::script('js/jquery.js') }}
 	{{ HTML::script('js/jquery.countdown.js') }}
 	{{ HTML::script('js/bootstrap-typeahead.js') }}
+	{{ HTML::script('js/bootstrap-tooltip.js') }}
 	{{ HTML::script('js/site.js') }}
 </body>
 

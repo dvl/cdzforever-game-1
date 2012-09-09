@@ -85,3 +85,7 @@ Form::macro('armors_form', function() {
 HTML::macro('profile_link', function($user = null) {
 	return HTML::link('profile/'.$user,$user);
 });
+
+HTML::macro('date', function($string) {
+	return Date::forge($string)->format('%d/%m/%Y @ %H:%m');
+});

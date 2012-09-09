@@ -24,6 +24,7 @@ class Register_Controller extends Base_Controller {
 		$rules = array(
 			'username' => 'required|between:3,30|alpha|unique:users,username',
 			'email' => 'required|email|unique:users,email',
+			// 'invite' => 'required|exists:invites,code'
 			'password' => 'required|min:6',
 			'password-2' => 'same:password',
 			'rules' => 'accepted',
@@ -38,6 +39,7 @@ class Register_Controller extends Base_Controller {
 			'email_required' => 'O campo e-mail deve ser preenchido',
 			'email_email' => 'O campo e-mail deve conter um e-mail valido',
 			'email_unique' => 'Já existe uma conta registrada com seu endereço de email',
+			// 'invite_required' => 'Você deve informar o código do seu convite.',
 			'password_required' => 'O campo senha deve ser preenchido',
 			'password_min' => 'A senha deve ter no minimo 6 caracteres',
 			'password-2_same' => 'As senhas digitadas não são iguais',

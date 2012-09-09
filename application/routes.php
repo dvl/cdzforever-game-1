@@ -53,6 +53,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::any('question','questions@question');
 	Route::controller('fight');
 	Route::controller('ajax');
+	Route::controller('message');
 });
 
 /*

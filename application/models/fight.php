@@ -9,6 +9,12 @@ class Fight extends Eloquent {
 		$fight->save();
 	}
 
+	public function cancel_fight($id) {
+		$fight = static::find($id);
+		$fight->status = 1;
+		$fight->save();
+	}
+
 	public function user() {
 		$this->belongs_to('user');
 	}

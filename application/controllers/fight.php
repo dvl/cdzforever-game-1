@@ -56,4 +56,35 @@ class Fight_Controller extends Base_Controller {
 
 		return View::make('fight.find')->with('users', $users);
 	}
+
+	public function post_cancel() { 
+
+		$fight = Fight::where('fight_id', '=', Input::get('fight_id'))->where('user_id_1', '=', Auth::user()->id);
+
+		if (!count($fight)) { 
+			return Redirect::to('fight')->with('error', 'Algo inesperado aconteceu');
+		}
+		else {
+			$fight = new Fight;
+			$fight->cancel_fight(Input::get('fight_id'));
+
+			return Redirect::to('fight')->with('info', 'Desafio cancelado!');
+		}
+
+	}
+
+	public function post_reject() { 
+
+		$fight = Fight::where('fight_id', '=', Input::get('fight_id'))->where('user_id_2', '=', Auth::user()->id);
+
+		if (!count($fight)) { 
+			return Redirect::to('fight')->with('error', 'Algo inesperado aconteceu');
+		}
+		else {
+			$fight = new Fight;
+			$fight->cancel_fight(Input::get('fight_id'));
+
+			return Redirect::to('fight')->with('info', 'Desafio rejeitado!');
+		}
+	}
 }

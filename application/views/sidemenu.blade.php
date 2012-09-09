@@ -9,9 +9,9 @@
 	{{ HTML::menulink('store','Loja','shopping-cart') }}	
 	{{ HTML::menulink('armor','Amadura','leaf') }}
 	{{ HTML::menulink('quiz','Quiz','check') }}
-	{{ HTML::menulink('merits','Méritos','gift') }}
-	{{ HTML::menulink('statics','Estatísticas','list-alt') }}
-	{{ HTML::menulink_not('statics','Mensagens','envelope',1) }} 
-	{{ HTML::menulink_not('statics','Relatórios','briefcase',0) }}
+	{{ HTML::menulink('#','Méritos','gift') }}
+	{{ HTML::menulink('rank','Estatísticas','list-alt') }}
+	{{ HTML::menulink_not('message','Mensagens','envelope', Message::where('to', '=', Auth::user()->id)->where('readed', '=', 0)->count()) }} 
+	{{ HTML::menulink_not('report','Relatórios','briefcase',0) }}
 	{{ HTML::menulink('logout','Logout','off') }}
 @endif

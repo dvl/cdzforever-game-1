@@ -58,10 +58,9 @@
 				<th>Aura</th>
 				<th>Expira em</th>
 				<th>Ação</th>
-			{{ Form::open('fight/action') }}
 				<?php $i = 0; ?>
 				@foreach ($sent as $s)
-					{{ Form::open('fight/action') }}
+					{{ Form::open('fight/reject') }}
 						@if ($s->user_id_2 == Auth::user()->id)
 						<?php $user = User::find($s->user_id_1); $i++; ?>
 							<tr>
@@ -96,7 +95,7 @@
 				<th>Ação</th>
 				<?php $i = 0; ?>
 				@foreach ($sent as $s)
-					{{ Form::open('fight/action') }}
+					{{ Form::open('fight/cancel') }}
 						@if ($s->user_id_2 != Auth::user()->id)
 						<?php $user = User::find($s->user_id_2); $i++; ?>
 							<tr>
