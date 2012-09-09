@@ -43,6 +43,10 @@ $(function () {
 	$('[rel=tooltip]').each(function() { 
 		$(this).tooltip();
 	});
+
+	$('.checkall').click(function () {
+        $(this).parents('table:eq(0)').find(':checkbox').attr('checked', this.checked);
+    });
 				
 });
 

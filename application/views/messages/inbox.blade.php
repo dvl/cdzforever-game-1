@@ -7,7 +7,7 @@
 @section('content')
 
 	<ul class="breadcrumb">
-		<li class="active">
+		<li {{ Input::get('archive') ? '' : 'class="active"' }} >
 			{{ HTML::link('message','Recebidas') }} <span class="divider">|</span>
 		</li>
 		<li>
@@ -16,15 +16,16 @@
 		<li>
 			{{ HTML::link('message/sent','Enviadas') }} <span class="divider">|</span>
 		</li>
-		<li>
-			{{ HTML::link('message/archive','Arquivo') }}
+		<li {{ Input::get('archive') ? 'class="active"' : '' }} >
+			{{ HTML::link('message?archive=1','Arquivo') }}
 		</li>
 	</ul>
 
 	<div>
 		<table class="table table-bordered table-condensed">
+			{{ Form::open('message/action')}}
 			<thead>
-				<th style="width: 2%;">{{ Form::checkbox('all', 'true') }}</th>
+				<th style="width: 2%;">{{ Form::checkbox('cheackall', '', false, array('class' => 'checkall')) }}</th>
 				<th style="width: 60%;">Assunto</th>
 				<th>Enviada Por</th>
 				<th>Data</th>
@@ -42,8 +43,9 @@
 				@endforeach	
 				<tr>
 					<td colspan="4">
-						{{ Form::submit('Arquivar', array('class' => 'btn btn-primary')) }}
-						{{ Form::submit('Deletar', array('class' => 'btn btn-danger')) }}
+						{{ Form::token() }}
+						{{ Input::get('archive') ? '' : Form::submit('Arquivar', array('name' => 'archivemsg', 'class' => 'btn btn-primary')) }}
+						{{ Form::submit('Deletar', array('name' => 'deletemsg', 'class' => 'btn btn-danger')) }}
 					</td>	
 			</tbody>
 		</table>

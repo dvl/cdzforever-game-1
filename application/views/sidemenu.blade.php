@@ -11,7 +11,7 @@
 	{{ HTML::menulink('quiz','Quiz','check') }}
 	{{ HTML::menulink('#','Méritos','gift') }}
 	{{ HTML::menulink('rank','Estatísticas','list-alt') }}
-	{{ HTML::menulink_not('message','Mensagens','envelope', Message::where('to', '=', Auth::user()->id)->where('readed', '=', 0)->count()) }} 
+	{{ HTML::menulink_not('message','Mensagens','envelope', Message::where('type', '=', 0)->where('to', '=', Auth::user()->id)->where('readed', '=', 0)->count()) }} 
 	{{ HTML::menulink_not('report','Relatórios','briefcase',0) }}
 	{{ HTML::menulink('logout','Logout','off') }}
 @endif

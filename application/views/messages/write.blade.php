@@ -17,7 +17,7 @@
 			{{ HTML::link('message/sent','Enviadas') }} <span class="divider">|</span>
 		</li>
 		<li>
-			{{ HTML::link('message/archive','Arquivo') }}
+			{{ HTML::link('message?archive=1','Arquivo') }}
 		</li>
 	</ul>
 

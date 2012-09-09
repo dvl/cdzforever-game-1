@@ -17,16 +17,17 @@
 			{{ HTML::link('message/sent','Enviadas') }} <span class="divider">|</span>
 		</li>
 		<li>
-			{{ HTML::link('message/archive','Arquivo') }}
+			{{ HTML::link('message?archive=1','Arquivo') }}
 		</li>
 	</ul>
 
 	<div>
 		<table class="table table-bordered table-condensed">
+			{{ Form::open('message/action')}}
 			<thead>
-				<th style="width: 2%;">{{ Form::checkbox('all', 'true') }}</th>
+				<th style="width: 2%;">{{ Form::checkbox('cheackall', '', false, array('class' => 'checkall')) }}</th>
 				<th style="width: 60%;">Assunto</th>
-				<th>Enviada Para</th>
+				<th>Enviada para</th>
 				<th>Data</th>
 			</thead>
 			<tbody>
@@ -42,7 +43,8 @@
 				@endforeach	
 				<tr>
 					<td colspan="4">
-						{{ Form::submit('Deletar', array('class' => 'btn btn-danger')) }}
+						{{ Form::token() }}
+						{{ Form::submit('Deletar', array('name' => 'deletemsg', 'class' => 'btn btn-danger')) }}
 					</td>	
 			</tbody>
 		</table>

@@ -34,7 +34,7 @@
 				</tr>
 				<tr>
 					<td style="font-weight: bold; vertical-align: middle;">Assunto:</td>
-					<td style="padding-top: 14px">{{ Form::text('subject', strstr($msg->subject, "RE: "), array('class' => 'input-xlarge')) }}</td>
+					<td style="padding-top: 14px">{{ Form::text('subject', $msg->subject, array('class' => 'input-xlarge')) }}</td>
 				</tr>
 
 				<tr>

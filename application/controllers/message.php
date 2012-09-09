@@ -10,27 +10,36 @@ class Message_Controller extends Base_Controller {
 
 	public function get_index() {	
 
-		$msgs = Message::where('username', '=', Auth::user()->id)->where('to', '=', Auth::user()->id)->order_by('created_at','DESC')->paginate(15);
+		$archive = Input::get('archive') ? 1 : 0;
+
+		$msgs = Message::where('type', '=', 0)->where('archived', '=', $archive)->where('deleted', '=', 0)->where('to', '=', Auth::user()->id)->order_by('created_at','DESC')->paginate(15);
 
 		return View::make('messages/inbox')->with('msgs', $msgs);
 	}
 
 	public function get_sent() {	
-
-		$msgs = Message::where('username', '=', Auth::user()->id)->where('from', '=', Auth::user()->id)->order_by('created_at','DESC')->paginate(15);
+		$msgs = Message::where('type', '=', 1)->where('archived', '=', 0)->where('deleted', '=', 0)->where('from', '=', Auth::user()->id)->order_by('created_at','DESC')->paginate(15);
 
 		return View::make('messages/outbox')->with('msgs', $msgs);
 	}
 
 	public function get_read($id = null) { 
 
-		$msg = Message::where('id', '=', $id)->where('username', '=', Auth::user()->id)->first();
+		$msg = Message::where('id', '=', $id)->where(function($query) {
+				$query->where('from', '=', Auth::user()->id);
+				$query->or_where('to', '=', Auth::user()->id);
+			})->first();
 
 		if (count($msg)) { 
-
 			if (($msg->to == Auth::user()->id) && (!$msg->readed)) { 
 				DB::table('messages')->where('share', '=', $msg->share)->update(array('readed' => 1));
 			}
+
+			if (substr($msg->body, -1, 1)!="\n") {
+				$msg->body .= "\n";
+			}
+
+			$msg->body = preg_replace('/^(&gt;[^>](.*))\n/m', '<span class="quote">\\1</span>', $msg->body);
 
 			return View::make('messages/read')->with('msg', $msg);
 		}
@@ -38,7 +47,6 @@ class Message_Controller extends Base_Controller {
 		else {
 			return Response::error('404');
 		}
-
 	}
 
 	public function get_write() { 
@@ -66,7 +74,7 @@ class Message_Controller extends Base_Controller {
 		}
 		else {
 			$msg = new Message;
-			// $msg->send(Input::get('to'),Auth::user()->id,Input::get('subject'),Input::get('body'));
+			$msg->send(Input::get('to'),Auth::user()->id,Input::get('subject'),Input::get('body'));
 
 			return Redirect::to('message/sent')->with('info', 'Mensagem Enviada');
 		}
@@ -74,7 +82,10 @@ class Message_Controller extends Base_Controller {
 	}
 
 	public function get_reply($id) {
-		$msg = Message::where('id', '=', $id)->where('username', '=', Auth::user()->id)->first();
+		$msg = Message::where('id', '=', $id)->where(function($query) {
+				$query->where('from', '=', Auth::user()->id);
+				$query->or_where('to', '=', Auth::user()->id);
+			})->first();
 
 		if (!count($msg)) { 
 			return Response::error('404');
@@ -85,13 +96,32 @@ class Message_Controller extends Base_Controller {
 		$body = explode("\n", $msg->body);
 
 		$msg->from = $user->username;
-		$msg->body = "\n\n\nEm ".HTML::date($msg->created_at).", ".$msg->from." escreveu:\n\n";
+		$msg->body = "\n\n\nEm ".HTML::date($msg->created_at).", ".$msg->from." escreveu:\n";
 
 		foreach ($body as $line) { 
-			$msg->body .= "> ".$line."\n"; 
+			$msg->body .= "\n> ".$line; 
 		}
 
 		return View::make('messages/reply')->with('msg', $msg);
+	}
+
+	public function post_action() { 
+		if (Input::has('archivemsg')) {
+			DB::table('messages')->where_in('id', Input::get('msg_id'))->where('type', '=', 0)->where(function($query) {
+				$query->where('from', '=', Auth::user()->id);
+				$query->or_where('to', '=', Auth::user()->id);
+			})->update(array('archived' => 1));
+
+			return Redirect::to('message?archive=1');
+		}
+		if (Input::has('deletemsg')) {
+			DB::table('messages')->where_in('id', Input::get('msg_id'))->where(function($query) {
+				$query->where('from', '=', Auth::user()->id);
+				$query->or_where('to', '=', Auth::user()->id);
+			})->update(array('deleted' => 1));
+
+			return Redirect::to('message');
+		}
 	}
 
 
