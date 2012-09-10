@@ -45,8 +45,8 @@ $(function () {
 	});
 
 	$('.checkall').click(function () {
-        $(this).parents('table:eq(0)').find(':checkbox').attr('checked', this.checked);
-    });
+		$(this).parents('table:eq(0)').find(':checkbox').attr('checked', this.checked);
+	});
 				
 });
 

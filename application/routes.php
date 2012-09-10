@@ -54,6 +54,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::controller('fight');
 	Route::controller('ajax');
 	Route::controller('message');
+	Route::controller('report');
 });
 
 /*
